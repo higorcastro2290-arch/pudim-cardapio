@@ -7,6 +7,12 @@ export async function POST(request: Request) {
     const password = typeof body.password === "string" ? body.password : "";
 
     if (!validateAdminPassword(password)) {
+      console.error("Admin login failed", {
+        hasAdminPassword: Boolean(process.env.ADMIN_PASSWORD?.trim()),
+        expectedLength: process.env.ADMIN_PASSWORD?.trim().length ?? 0,
+        receivedLength: password.trim().length,
+      });
+
       return NextResponse.json({ error: "Senha invalida." }, { status: 401 });
     }
 
