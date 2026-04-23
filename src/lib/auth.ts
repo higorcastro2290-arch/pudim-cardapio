@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 export const adminSessionCookieName = "pudim_admin_session";
 
 function getAdminPassword() {
-  return process.env.ADMIN_PASSWORD || "troque-esta-senha";
+  return process.env.ADMIN_PASSWORD?.trim() || "troque-esta-senha";
 }
 
 function getSessionSecret() {
@@ -17,7 +17,7 @@ function createSessionToken() {
 
 export function validateAdminPassword(password: string) {
   const expected = Buffer.from(getAdminPassword());
-  const received = Buffer.from(password);
+  const received = Buffer.from(password.trim());
 
   if (expected.length !== received.length) {
     return false;
