@@ -68,7 +68,7 @@ const featuredSweets: Product[] = [
     price: 45,
     note: "Versao grande do classico da casa, ideal para compartilhar, servir em encomendas especiais e destacar a cremosidade com bastante calda de caramelo.",
     badge: "Familia",
-    image: "/tradicional 1100ML.png",
+    image: "/tradicional-1100ml.png",
     size: "1100ml",
     badgeClassName: "bg-[#ffe7b8] text-[#8f5b00]",
   },
