@@ -454,45 +454,6 @@ export default function Home() {
                 </a>
               </div>
 
-              <section id="cardapio" className="space-y-4 md:hidden">
-                <div className="flex items-end justify-between gap-4">
-                  <div>
-                    <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[var(--color-caramel)]">
-                      Cardapio rapido
-                    </p>
-                    <h2 className="mt-2 font-[family-name:var(--font-display)] text-3xl leading-tight">
-                      Deslize para ver os sabores.
-                    </h2>
-                  </div>
-                  <span className="rounded-full bg-white/80 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--color-muted)]">
-                    Swipe
-                  </span>
-                </div>
-
-                <div className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain px-4 pb-3 scroll-smooth touch-pan-x [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-                  {featuredSweets.map((sweet) => {
-                    const quantity = cart[sweet.name] ?? 0;
-                    const singleProductWhatsappLink = createWhatsappLink(
-                      `Ola! Quero pedir ${quantity > 0 ? quantity : 1}x ${sweet.name} por ${formatCurrency(
-                        sweet.price
-                      )} cada.`
-                    );
-
-                    return (
-                      <ProductCard
-                        key={sweet.name}
-                        product={sweet}
-                        quantity={quantity}
-                        onIncrement={() => updateCart(sweet.name, 1)}
-                        onDecrement={() => updateCart(sweet.name, -1)}
-                        whatsappLink={singleProductWhatsappLink}
-                        className="w-[calc(100vw-2rem)] min-w-[calc(100vw-2rem)] max-w-[calc(100vw-2rem)] shrink-0 snap-center"
-                      />
-                    );
-                  })}
-                </div>
-              </section>
-
               <div className="grid gap-4 pt-1 min-[420px]:grid-cols-2 sm:grid-cols-3">
                 {stats.map((stat) => (
                   <article
@@ -592,7 +553,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mx-auto hidden w-full max-w-7xl px-6 py-20 md:block sm:px-10 lg:px-12">
+      <section id="cardapio" className="mx-auto w-full max-w-7xl px-4 py-16 sm:px-10 sm:py-20 lg:px-12">
         <div className="mb-10 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-2xl">
             <p className="text-sm font-semibold uppercase tracking-[0.26em] text-[var(--color-caramel)]">
