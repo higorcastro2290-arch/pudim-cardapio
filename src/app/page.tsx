@@ -107,6 +107,109 @@ const formatCurrency = (value: number) =>
     currency: "BRL",
   });
 
+type ProductCardProps = {
+  product: Product;
+  quantity: number;
+  onIncrement: () => void;
+  onDecrement: () => void;
+  whatsappLink: string;
+  className?: string;
+};
+
+function ProductCard({
+  product,
+  quantity,
+  onIncrement,
+  onDecrement,
+  whatsappLink,
+  className = "",
+}: ProductCardProps) {
+  return (
+    <article
+      className={`group overflow-hidden rounded-[30px] border border-[rgba(184,90,18,0.1)] bg-white shadow-[0_18px_45px_rgba(140,58,18,0.08)] transition hover:-translate-y-1 ${className}`.trim()}
+    >
+      <div className="h-56 bg-[linear-gradient(140deg,#8f3f00_0%,#c86e14_44%,#ffd9be_100%)] p-3 text-white">
+        <div
+          className="h-full rounded-[24px] border border-white/20 bg-white/10 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: `url('${product.image}')` }}
+        />
+      </div>
+      <div className="space-y-4 p-6">
+        <div className="flex items-center justify-between">
+          <span
+            className={`rounded-full px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] ${product.badgeClassName}`}
+          >
+            {product.badge}
+          </span>
+          <strong className="text-lg text-[var(--color-caramel)]">
+            {formatCurrency(product.price)}
+          </strong>
+        </div>
+        <div>
+          <h3 className="text-xl font-semibold">{product.name}</h3>
+          <p className="mt-2 text-sm leading-7 text-[var(--color-muted)]">{product.note}</p>
+        </div>
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-muted)]">
+          {product.size}
+        </p>
+
+        <div className="rounded-[22px] bg-[var(--color-cream)] p-3">
+          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--color-muted)]">
+            Quantidade no carrinho
+          </p>
+          <div className="mt-3 flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={onDecrement}
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-[rgba(184,90,18,0.18)] text-xl font-semibold text-[var(--color-caramel)] transition hover:bg-white"
+              >
+                -
+              </button>
+              <span className="min-w-8 text-center text-lg font-bold text-[var(--color-syrup)]">
+                {quantity}
+              </span>
+              <button
+                type="button"
+                onClick={onIncrement}
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-[rgba(184,90,18,0.18)] text-xl font-semibold text-[var(--color-caramel)] transition hover:bg-white"
+              >
+                +
+              </button>
+            </div>
+            <strong className="text-sm text-[var(--color-syrup)]">
+              {formatCurrency(quantity * product.price)}
+            </strong>
+          </div>
+          <p className="mt-2 text-xs text-[var(--color-muted)]">
+            {quantity > 0
+              ? "Produto adicionado. Voce pode ajustar a quantidade aqui."
+              : "Nenhuma unidade adicionada ainda."}
+          </p>
+        </div>
+
+        <div className="grid gap-3">
+          <button
+            type="button"
+            onClick={onIncrement}
+            className="w-full rounded-full bg-[var(--color-syrup)] px-4 py-3 text-sm font-semibold text-white transition group-hover:bg-[var(--color-caramel)]"
+          >
+            {quantity > 0 ? "Adicionar mais um" : "Adicionar ao carrinho"}
+          </button>
+          <a
+            href={whatsappLink}
+            target="_blank"
+            rel="noreferrer"
+            className="w-full rounded-full border border-[rgba(184,90,18,0.18)] bg-white px-4 py-3 text-center text-sm font-semibold text-[var(--color-caramel)] transition hover:bg-[var(--color-cream)]"
+          >
+            Pedir no WhatsApp
+          </a>
+        </div>
+      </div>
+    </article>
+  );
+}
+
 export default function Home() {
   const [cart, setCart] = useState<Record<string, number>>({});
   const [checkoutForm, setCheckoutForm] = useState<CheckoutForm>({
@@ -362,6 +465,45 @@ export default function Home() {
                   </article>
                 ))}
               </div>
+
+              <section id="cardapio" className="space-y-4 md:hidden">
+                <div className="flex items-end justify-between gap-4">
+                  <div>
+                    <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[var(--color-caramel)]">
+                      Cardapio rapido
+                    </p>
+                    <h2 className="mt-2 font-[family-name:var(--font-display)] text-3xl leading-tight">
+                      Deslize para ver os sabores.
+                    </h2>
+                  </div>
+                  <span className="rounded-full bg-white/80 px-3 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--color-muted)]">
+                    Swipe
+                  </span>
+                </div>
+
+                <div className="-mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-2 sm:-mx-10 sm:px-10 [&::-webkit-scrollbar]:hidden">
+                  {featuredSweets.map((sweet) => {
+                    const quantity = cart[sweet.name] ?? 0;
+                    const singleProductWhatsappLink = createWhatsappLink(
+                      `Ola! Quero pedir ${quantity > 0 ? quantity : 1}x ${sweet.name} por ${formatCurrency(
+                        sweet.price
+                      )} cada.`
+                    );
+
+                    return (
+                      <ProductCard
+                        key={sweet.name}
+                        product={sweet}
+                        quantity={quantity}
+                        onIncrement={() => updateCart(sweet.name, 1)}
+                        onDecrement={() => updateCart(sweet.name, -1)}
+                        whatsappLink={singleProductWhatsappLink}
+                        className="w-[88vw] min-w-[88vw] snap-center sm:w-[430px] sm:min-w-[430px]"
+                      />
+                    );
+                  })}
+                </div>
+              </section>
             </div>
 
             <div className="relative">
@@ -450,7 +592,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="cardapio" className="mx-auto w-full max-w-7xl px-6 py-20 sm:px-10 lg:px-12">
+      <section className="mx-auto hidden w-full max-w-7xl px-6 py-20 md:block sm:px-10 lg:px-12">
         <div className="mb-10 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-2xl">
             <p className="text-sm font-semibold uppercase tracking-[0.26em] text-[var(--color-caramel)]">
@@ -475,89 +617,14 @@ export default function Home() {
             );
 
             return (
-              <article
+              <ProductCard
                 key={sweet.name}
-                className="group overflow-hidden rounded-[30px] border border-[rgba(184,90,18,0.1)] bg-white shadow-[0_18px_45px_rgba(140,58,18,0.08)] transition hover:-translate-y-1"
-              >
-                <div className="h-56 bg-[linear-gradient(140deg,#8f3f00_0%,#c86e14_44%,#ffd9be_100%)] p-3 text-white">
-                  <div
-                    className="h-full rounded-[24px] border border-white/20 bg-white/10 bg-cover bg-center bg-no-repeat"
-                    style={{ backgroundImage: `url('${sweet.image}')` }}
-                  />
-                </div>
-                <div className="space-y-4 p-6">
-                  <div className="flex items-center justify-between">
-                    <span
-                      className={`rounded-full px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] ${sweet.badgeClassName}`}
-                    >
-                      {sweet.badge}
-                    </span>
-                    <strong className="text-lg text-[var(--color-caramel)]">
-                      {formatCurrency(sweet.price)}
-                    </strong>
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-semibold">{sweet.name}</h3>
-                    <p className="mt-2 text-sm leading-7 text-[var(--color-muted)]">{sweet.note}</p>
-                  </div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-muted)]">
-                    {sweet.size}
-                  </p>
-
-                  <div className="rounded-[22px] bg-[var(--color-cream)] p-3">
-                    <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--color-muted)]">
-                      Quantidade no carrinho
-                    </p>
-                    <div className="mt-3 flex items-center justify-between gap-3">
-                      <div className="flex items-center gap-2">
-                        <button
-                          type="button"
-                          onClick={() => updateCart(sweet.name, -1)}
-                          className="flex h-10 w-10 items-center justify-center rounded-full border border-[rgba(184,90,18,0.18)] text-xl font-semibold text-[var(--color-caramel)] transition hover:bg-white"
-                        >
-                          -
-                        </button>
-                        <span className="min-w-8 text-center text-lg font-bold text-[var(--color-syrup)]">
-                          {quantity}
-                        </span>
-                        <button
-                          type="button"
-                          onClick={() => updateCart(sweet.name, 1)}
-                          className="flex h-10 w-10 items-center justify-center rounded-full border border-[rgba(184,90,18,0.18)] text-xl font-semibold text-[var(--color-caramel)] transition hover:bg-white"
-                        >
-                          +
-                        </button>
-                      </div>
-                      <strong className="text-sm text-[var(--color-syrup)]">
-                        {formatCurrency(quantity * sweet.price)}
-                      </strong>
-                    </div>
-                    <p className="mt-2 text-xs text-[var(--color-muted)]">
-                      {quantity > 0
-                        ? "Produto adicionado. Voce pode ajustar a quantidade aqui."
-                        : "Nenhuma unidade adicionada ainda."}
-                    </p>
-                  </div>
-
-                  <div className="grid gap-3">
-                    <button
-                      type="button"
-                      onClick={() => updateCart(sweet.name, 1)}
-                      className="w-full rounded-full bg-[var(--color-syrup)] px-4 py-3 text-sm font-semibold text-white transition group-hover:bg-[var(--color-caramel)]"
-                    >
-                      {quantity > 0 ? "Adicionar mais um" : "Adicionar ao carrinho"}
-                    </button>
-                    <a
-                      href={singleProductWhatsappLink}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="w-full rounded-full border border-[rgba(184,90,18,0.18)] bg-white px-4 py-3 text-center text-sm font-semibold text-[var(--color-caramel)] transition hover:bg-[var(--color-cream)]"
-                    >
-                      Pedir no WhatsApp
-                    </a>
-                  </div>
-                </div>
-              </article>
+                product={sweet}
+                quantity={quantity}
+                onIncrement={() => updateCart(sweet.name, 1)}
+                onDecrement={() => updateCart(sweet.name, -1)}
+                whatsappLink={singleProductWhatsappLink}
+              />
             );
           })}
         </div>
