@@ -128,13 +128,13 @@ function ProductCard({
     <article
       className={`group overflow-hidden rounded-[30px] border border-[rgba(184,90,18,0.1)] bg-white shadow-[0_18px_45px_rgba(140,58,18,0.08)] transition hover:-translate-y-1 ${className}`.trim()}
     >
-      <div className="h-56 bg-[linear-gradient(140deg,#8f3f00_0%,#c86e14_44%,#ffd9be_100%)] p-3 text-white">
+      <div className="h-52 bg-[linear-gradient(140deg,#8f3f00_0%,#c86e14_44%,#ffd9be_100%)] p-3 text-white sm:h-56">
         <div
           className="h-full rounded-[24px] border border-white/20 bg-white/10 bg-cover bg-center bg-no-repeat"
           style={{ backgroundImage: `url('${product.image}')` }}
         />
       </div>
-      <div className="space-y-4 p-6">
+      <div className="space-y-4 p-5 sm:p-6">
         <div className="flex items-center justify-between">
           <span
             className={`rounded-full px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] ${product.badgeClassName}`}
@@ -146,8 +146,8 @@ function ProductCard({
           </strong>
         </div>
         <div>
-          <h3 className="text-xl font-semibold">{product.name}</h3>
-          <p className="mt-2 text-sm leading-7 text-[var(--color-muted)]">{product.note}</p>
+          <h3 className="text-lg font-semibold sm:text-xl">{product.name}</h3>
+          <p className="mt-2 text-sm leading-6 text-[var(--color-muted)] sm:leading-7">{product.note}</p>
         </div>
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-muted)]">
           {product.size}
@@ -385,26 +385,26 @@ export default function Home() {
   };
 
   return (
-    <main className="bg-[var(--color-cream)] text-[var(--color-ink)]">
+    <main className="overflow-x-hidden bg-[var(--color-cream)] text-[var(--color-ink)]">
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(255,212,184,0.95),_transparent_36%),radial-gradient(circle_at_bottom_right,_rgba(191,221,224,0.42),_transparent_30%),linear-gradient(180deg,#fff0e2_0%,#fff8f1_62%,#fff3e6_100%)]" />
         <div className="absolute left-[-10%] top-8 h-56 w-56 rounded-full bg-[rgba(184,90,18,0.12)] blur-3xl" />
         <div className="absolute right-[-5%] top-24 h-64 w-64 rounded-full bg-[rgba(191,221,224,0.5)] blur-3xl" />
 
-        <div className="relative mx-auto flex min-h-screen w-full max-w-7xl flex-col px-6 py-8 sm:px-10 lg:px-12">
-          <header className="mb-10 flex items-center justify-between gap-4">
-            <div className="flex items-center gap-4">
+        <div className="relative mx-auto flex min-h-screen w-full max-w-7xl flex-col px-4 py-5 sm:px-10 sm:py-8 lg:px-12">
+          <header className="mb-8 flex flex-col gap-5 sm:mb-10 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-center gap-3 sm:gap-4">
               <div className="overflow-hidden rounded-full border-2 border-[rgba(255,248,241,0.9)] bg-white shadow-[0_12px_30px_rgba(143,63,0,0.28)]">
                 <div
-                  className="h-16 w-16 bg-[radial-gradient(circle_at_40%_35%,#d97b18_0%,#b85a12_62%,#8f3f00_100%)] bg-cover bg-center"
+                  className="h-14 w-14 bg-[radial-gradient(circle_at_40%_35%,#d97b18_0%,#b85a12_62%,#8f3f00_100%)] bg-cover bg-center sm:h-16 sm:w-16"
                   style={{ backgroundImage: "url('/logo.png')" }}
                 />
               </div>
-              <div>
-                <p className="font-[family-name:var(--font-display)] text-2xl tracking-[0.04em] text-[var(--color-caramel)]">
+              <div className="min-w-0">
+                <p className="font-[family-name:var(--font-display)] text-xl tracking-[0.03em] text-[var(--color-caramel)] sm:text-2xl">
                   Priscila Siqueira
                 </p>
-                <p className="text-sm uppercase tracking-[0.22em] text-[var(--color-muted)]">
+                <p className="text-xs uppercase tracking-[0.18em] text-[var(--color-muted)] sm:text-sm sm:tracking-[0.22em]">
                   Pudim Gourmet
                 </p>
               </div>
@@ -415,23 +415,23 @@ export default function Home() {
             </div>
             <a
               href="#pedido"
-              className="rounded-full border border-[var(--color-caramel)] bg-white/80 px-5 py-2 text-sm font-semibold text-[var(--color-caramel)] transition hover:bg-[var(--color-caramel)] hover:text-white"
+              className="w-full rounded-full border border-[var(--color-caramel)] bg-white/80 px-5 py-3 text-center text-sm font-semibold text-[var(--color-caramel)] transition hover:bg-[var(--color-caramel)] hover:text-white sm:w-auto sm:py-2"
             >
               Fazer pre-pedido
             </a>
           </header>
 
-          <div className="grid flex-1 items-center gap-12 lg:grid-cols-[1.15fr_0.85fr]">
+          <div className="grid flex-1 items-start gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:gap-12">
             <div className="space-y-8">
-              <div className="inline-flex items-center rounded-full border border-[rgba(184,90,18,0.15)] bg-white/75 px-4 py-2 text-sm text-[var(--color-caramel)] shadow-sm backdrop-blur">
+              <div className="inline-flex items-center rounded-full border border-[rgba(184,90,18,0.15)] bg-white/75 px-4 py-2 text-xs text-[var(--color-caramel)] shadow-sm backdrop-blur sm:text-sm">
                 Pudins e doces sob encomenda com retirada e entrega
               </div>
 
               <div className="space-y-5">
-                <h1 className="max-w-3xl font-[family-name:var(--font-display)] text-5xl leading-[0.95] sm:text-6xl lg:text-7xl">
+                <h1 className="max-w-3xl font-[family-name:var(--font-display)] text-[2.5rem] leading-[0.95] sm:text-6xl lg:text-7xl">
                   Pudins e sobremesas artesanais para encomendar com antecedencia.
                 </h1>
-                <p className="max-w-2xl text-lg leading-8 text-[var(--color-muted)] sm:text-xl">
+                <p className="max-w-2xl text-base leading-7 text-[var(--color-muted)] sm:text-xl sm:leading-8">
                   Escolha seus sabores favoritos, ajuste as quantidades e envie seu pedido com praticidade
                   pelo WhatsApp para retirada ou entrega no horario combinado.
                 </p>
@@ -440,7 +440,7 @@ export default function Home() {
               <div className="flex flex-col gap-4 sm:flex-row">
                 <a
                   href="#cardapio"
-                  className="rounded-full bg-[var(--color-caramel)] px-7 py-4 text-center text-base font-semibold text-white shadow-[0_16px_40px_rgba(123,43,26,0.28)] transition hover:-translate-y-0.5 hover:bg-[var(--color-caramel-dark)]"
+                  className="rounded-full bg-[var(--color-caramel)] px-6 py-4 text-center text-sm font-semibold text-white shadow-[0_16px_40px_rgba(123,43,26,0.28)] transition hover:-translate-y-0.5 hover:bg-[var(--color-caramel-dark)] sm:px-7 sm:text-base"
                 >
                   Ver cardapio
                 </a>
@@ -448,22 +448,10 @@ export default function Home() {
                   href={cartWhatsappLink}
                   target="_blank"
                   rel="noreferrer"
-                  className="rounded-full border border-[rgba(123,43,26,0.18)] bg-white/70 px-7 py-4 text-center text-base font-semibold text-[var(--color-ink)] transition hover:bg-white"
+                  className="rounded-full border border-[rgba(123,43,26,0.18)] bg-white/70 px-6 py-4 text-center text-sm font-semibold text-[var(--color-ink)] transition hover:bg-white sm:px-7 sm:text-base"
                 >
                   Fechar no WhatsApp
                 </a>
-              </div>
-
-              <div className="grid gap-4 pt-4 sm:grid-cols-3">
-                {stats.map((stat) => (
-                  <article
-                    key={stat.label}
-                    className="rounded-[28px] border border-white/70 bg-white/75 p-5 shadow-[0_20px_40px_rgba(140,58,18,0.08)] backdrop-blur"
-                  >
-                    <p className="text-3xl font-bold text-[var(--color-caramel)]">{stat.value}</p>
-                    <p className="mt-2 text-sm leading-6 text-[var(--color-muted)]">{stat.label}</p>
-                  </article>
-                ))}
               </div>
 
               <section id="cardapio" className="space-y-4 md:hidden">
@@ -476,12 +464,12 @@ export default function Home() {
                       Deslize para ver os sabores.
                     </h2>
                   </div>
-                  <span className="rounded-full bg-white/80 px-3 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--color-muted)]">
+                  <span className="rounded-full bg-white/80 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--color-muted)]">
                     Swipe
                   </span>
                 </div>
 
-                <div className="-mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-2 sm:-mx-10 sm:px-10 [&::-webkit-scrollbar]:hidden">
+                <div className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain px-4 pb-3 scroll-smooth touch-pan-x [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                   {featuredSweets.map((sweet) => {
                     const quantity = cart[sweet.name] ?? 0;
                     const singleProductWhatsappLink = createWhatsappLink(
@@ -498,15 +486,27 @@ export default function Home() {
                         onIncrement={() => updateCart(sweet.name, 1)}
                         onDecrement={() => updateCart(sweet.name, -1)}
                         whatsappLink={singleProductWhatsappLink}
-                        className="w-[88vw] min-w-[88vw] snap-center sm:w-[430px] sm:min-w-[430px]"
+                        className="w-[calc(100vw-2rem)] min-w-[calc(100vw-2rem)] max-w-[calc(100vw-2rem)] shrink-0 snap-center"
                       />
                     );
                   })}
                 </div>
               </section>
+
+              <div className="grid gap-4 pt-1 min-[420px]:grid-cols-2 sm:grid-cols-3">
+                {stats.map((stat) => (
+                  <article
+                    key={stat.label}
+                    className="rounded-[28px] border border-white/70 bg-white/75 p-5 shadow-[0_20px_40px_rgba(140,58,18,0.08)] backdrop-blur"
+                  >
+                    <p className="text-3xl font-bold text-[var(--color-caramel)]">{stat.value}</p>
+                    <p className="mt-2 text-sm leading-6 text-[var(--color-muted)]">{stat.label}</p>
+                  </article>
+                ))}
+              </div>
             </div>
 
-            <div className="relative">
+            <div className="relative hidden lg:block">
               <div className="absolute -left-8 top-14 hidden h-32 w-32 rounded-full bg-[rgba(184,90,18,0.18)] blur-2xl lg:block" />
               <div className="absolute -right-6 bottom-10 hidden h-40 w-40 rounded-full bg-[rgba(191,221,224,0.95)] blur-2xl lg:block" />
 
