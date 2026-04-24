@@ -63,6 +63,15 @@ const featuredSweets: Product[] = [
     size: "Mini",
     badgeClassName: "bg-[#f7f0cf] text-[#8a6a10]",
   },
+  {
+    name: "Pudim Tradicional 1100ml",
+    price: 45,
+    note: "Versao grande do classico da casa, ideal para compartilhar, servir em encomendas especiais e destacar a cremosidade com bastante calda de caramelo.",
+    badge: "Familia",
+    image: "/tradicional 1100ML.png",
+    size: "1100ml",
+    badgeClassName: "bg-[#ffe7b8] text-[#8f5b00]",
+  },
 ];
 
 const orderSteps = [
@@ -73,7 +82,7 @@ const orderSteps = [
 
 const stats = [
   { value: "48h", label: "antecedencia ideal para encomendas" },
-  { value: "4", label: "sabores disponiveis no cardapio" },
+  { value: "5", label: "sabores disponiveis no cardapio" },
   { value: "Retirada e entrega", label: "pedido organizado para receber ou buscar no horario combinado" },
 ];
 
